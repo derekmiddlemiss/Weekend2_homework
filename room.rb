@@ -1,6 +1,6 @@
 class Room
 
-  attr_reader :number, :guestlist, :playlist, :fee, :capacity
+  attr_reader :number, :guestlist, :playlist, :fee, :capacity, :message
 
   def initialize( number, fee, capacity )
     @number = number
@@ -8,6 +8,7 @@ class Room
     @playlist = []
     @fee = fee
     @capacity = capacity
+    @message = ""
   end
 
   def check_in( guest )
@@ -33,6 +34,19 @@ class Room
   def add_song( song )
     @playlist << song
     song.played
+    for guest in @guestlist do
+      if ( guest.fav_song == song.title )
+        set_message( "Whoo!" )
+      end
+    end
+  end
+
+  def set_message( message )
+    @message = message
+  end
+
+  def clear_message
+    @message = ""
   end
 
 end

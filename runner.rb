@@ -32,6 +32,7 @@ class Karaoke
       print_songs
       puts
       print_rooms
+      clear_room_messages
       puts
       puts "I Check-in guest"
       puts "O Check-out guest"
@@ -46,7 +47,7 @@ class Karaoke
         when "o"
           check_out_guest
         when "a"
-          add_song
+          add_song_to_room
         when "q"
           puts "End of program"
       end
@@ -55,36 +56,45 @@ class Karaoke
 
   def print_rooms
     for room in @rooms do
-      puts "Room #{room.number} Guests:#{room.guestlist.count} Capacity: #{room.capacity} Fee:#{room.fee}"
+      puts "Room #{room.number} Guests:#{room.guestlist.count} Capacity: #{room.capacity} Fee:#{room.fee} Messages: #{room.message}"
         for guest in room.guestlist do
-          puts "#{guest.first_name} #{guest.last_name} #{guest.cash_balance}"
+          puts "#{guest.first_name} #{guest.last_name} £#{guest.cash_balance}"
         end
     end
   end
 
   def print_songs
     for song in @songs do
-      puts "#{song.title} by #{song.artist}"
+      puts " '#{song.title}' by #{song.artist} -- Plays: #{song.number_of_plays}"
     end
   end
 
+  def clear_room_messages
+    @rooms.each { |room| room.clear_message }
+  end
+
+
   def check_in_guest
+    puts "Check in guest"
     puts "Which room number?"
     number = gets.chomp.to_i
     puts "First name?"
     first_name = gets.chomp
     puts "Last name?"
     last_name = gets.chomp
-    puts "Balance?"
+    puts "Cash balance?"
     balance = gets.chomp.to_i
+    puts "Favourite song?"
+    fav_song = gets.chomp
 
-    guest = Guest.new( first_name, last_name, balance )
+    guest = Guest.new( first_name, last_name, balance, fav_song )
     room = @rooms.find { |room| room.number == number }
 
     room.check_in( guest )
   end
 
   def check_out_guest
+    puts "Check out guest"
     puts "Which room number?"
     number = gets.chomp.to_i
     puts "First name?"
@@ -98,7 +108,17 @@ class Karaoke
     room.check_out( guest )
   end
 
+  def add_song_to_room
+    puts "Add song"
+    puts "Which room number?"
+    number = gets.chomp.to_i
+    puts "Song title?"
+    title = gets.chomp
+    room = @rooms.find { |room| room.number == number }
+    song = @songs.find { |song| song.title == title }
 
+    room.add_song( song )
+  end
 
 end
 
