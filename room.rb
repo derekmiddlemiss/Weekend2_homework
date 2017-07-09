@@ -30,6 +30,10 @@ class Room
     @guestlist.delete( guest )
   end
 
+  def add_song( song )
+    @playlist << song
+    song.played
+  end
 
 end
 
