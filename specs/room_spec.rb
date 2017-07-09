@@ -3,7 +3,6 @@ require_relative('../room.rb')
 require_relative('../song.rb')
 require_relative('../guest.rb')
 
-
 class TestRoom < Minitest::Test
 
   def setup
@@ -14,8 +13,8 @@ class TestRoom < Minitest::Test
     @brenda_bass = Guest.new( "Brenda", "Bass", 55 )
     @tony_tonedeaf = Guest.new( "Tony", "Tonedeaf", 45 )
     @cecilia_croaker = Guest.new( "Cecilia", "Croaker", 80 )
-
-    @simon_skint = Guest.new( "Simon", "Skint", 10 )    
+    @simon_skint = Guest.new( "Simon", "Skint", 10 )
+    @hakuna_matata = Song.new( "Hakuna Matata", "Elton John & Tim Rice" )    
   end
 
   def test_room_number
@@ -59,8 +58,6 @@ class TestRoom < Minitest::Test
     assert_equal( "Tonedeaf", @room1.guestlist[4].last_name )
   end
 
-
-
   def test_check_out
     @room1.check_in( @bill_treble )
     @room1.check_in( @suzy_tenor )
@@ -69,6 +66,12 @@ class TestRoom < Minitest::Test
     assert_equal( "Tenor", @room1.guestlist[0].last_name )
   end
 
+  def test_add_song
+    @room1.add_song( @hakuna_matata )
+    assert_equal( 1, @room1.playlist.count )
+    assert_equal( "Hakuna Matata", @room1.playlist[0].title )
+    assert_equal( 1, @hakuna_matata.number_of_plays )
+  end
 
 
 
