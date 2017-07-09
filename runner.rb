@@ -26,6 +26,8 @@ class Karaoke
     input = ""
 
     while ( input != "q" ) do
+      puts "Refresh display, hit return"
+      gets
       system("clear")
       puts "-#{name}-"
       puts
@@ -56,7 +58,7 @@ class Karaoke
 
   def print_rooms
     for room in @rooms do
-      puts "Room #{room.number} Guests:#{room.guestlist.count} Capacity: #{room.capacity} Fee:#{room.fee} Messages: #{room.message}"
+      puts "Room #{room.number} -- Guests:#{room.guestlist.count} -- Capacity:#{room.capacity} -- Fee:#{room.fee} -- Messages: #{room.message}"
         for guest in room.guestlist do
           puts "#{guest.first_name} #{guest.last_name} £#{guest.cash_balance}"
         end
@@ -64,15 +66,12 @@ class Karaoke
   end
 
   def print_songs
-    for song in @songs do
-      puts " '#{song.title}' by #{song.artist} -- Plays: #{song.number_of_plays}"
-    end
+    @songs.each { |song| puts " '#{song.title}' by #{song.artist} -- Plays: #{song.number_of_plays}" }
   end
 
   def clear_room_messages
     @rooms.each { |room| room.clear_message }
   end
-
 
   def check_in_guest
     puts "Check in guest"
