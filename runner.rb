@@ -58,7 +58,7 @@ class Karaoke
 
   def print_rooms
     for room in @rooms do
-      puts "Room #{room.number} -- Guests:#{room.guestlist.count} -- Capacity:#{room.capacity} -- Fee:#{room.fee} -- Messages: #{room.message}"
+      puts "Room #{room.number} -- Guests:#{room.guestlist.count} -- Capacity:#{room.capacity} -- Fee:£#{room.fee} -- Messages: #{room.message}"
         for guest in room.guestlist do
           puts "#{guest.first_name} #{guest.last_name} £#{guest.cash_balance}"
         end

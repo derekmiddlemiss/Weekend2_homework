@@ -2,7 +2,7 @@ class Guest
 
   attr_reader :first_name, :last_name, :cash_balance, :fav_song
 
-  def initialize( first_name, last_name, cash_balance, fav_song )
+  def initialize( first_name, last_name, cash_balance, fav_song="" )
     @first_name = first_name
     @last_name = last_name
     @cash_balance = cash_balance
